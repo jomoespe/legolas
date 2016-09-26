@@ -12,45 +12,30 @@ import com.google.api.services.vision.v1.model.AnnotateImageRequest;
 import com.google.api.services.vision.v1.model.AnnotateImageResponse;
 import com.google.api.services.vision.v1.model.BatchAnnotateImagesRequest;
 import com.google.api.services.vision.v1.model.Image;
-import com.google.api.services.vision.v1.model.SafeSearchAnnotation;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
-public class Main {
-    private static final String    GOOGLE_ACCESS_TOKEN_ENV = "GOOGLE_ACCESS_TOKEN";
-    
+class LegolasService {
+    public static final String     GOOGLE_ACCESS_TOKEN_ENV = "GOOGLE_ACCESS_TOKEN";
+
     private final GoogleCredential credential;
     private final Vision           vision;
-    
-    private Main() {
+
+    LegolasService() {
         credential = new GoogleCredential().setAccessToken( System.getenv(GOOGLE_ACCESS_TOKEN_ENV) );
         vision     = new Vision(new NetHttpTransport(), JacksonFactory.getDefaultInstance(), credential);
     }
-    
-    public static void main(String...args) throws FileNotFoundException, IOException {
-        checkEnvironment();
-        new Main().processImages(args);
-    }
 
-    public static void checkEnvironment() {
-        if (System.getenv(GOOGLE_ACCESS_TOKEN_ENV) == null) {
-            System.err.printf("No %s environment variable.\n", GOOGLE_ACCESS_TOKEN_ENV);
-            System.exit(1);
-        }
-    }
-    
-    private void processImages(final String...filenames) throws IOException {
-        vision.images()
+    List<AnnotateImageResponse> processImages(final String...filenames) throws IOException {
+        return vision.images()
               .annotate( createRequest(filenames) )
               .execute()
-              .getResponses()
-              .forEach( this::showResponse );
+              .getResponses();
     }
-    
+
     private BatchAnnotateImagesRequest createRequest(final String...imageNames) throws IOException {
         List<AnnotateImageRequest> imagesToAnnotated = stream(imageNames)
               .map( this::toAnnotatedImageRequest )
@@ -61,16 +46,6 @@ public class Main {
                 .setRequests(imagesToAnnotated);
     }
 
-    private void showResponse(final AnnotateImageResponse response) {
-        SafeSearchAnnotation safeSearch = response.getSafeSearchAnnotation();
-        System.out.printf(" __ Amos que nos vamos!!!! ________________\n");
-        System.out.printf("\tAdult: %s\n",    safeSearch.getAdult());
-        System.out.printf("\tMedical: %s\n",  safeSearch.getMedical());
-        System.out.printf("\tSpoof: %s\n",    safeSearch.getSpoof());
-        System.out.printf("\tViolence: %s\n", safeSearch.getViolence());
-        System.out.printf(" __________________________________________\n");
-    }
-    
     private Optional<AnnotateImageRequest> toAnnotatedImageRequest(final String imageName) {
         try {
             Image image = new Image().encodeContent( readAllBytes( Paths.get(imageName)));
