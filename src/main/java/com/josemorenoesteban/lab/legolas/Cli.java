@@ -1,5 +1,6 @@
 package com.josemorenoesteban.lab.legolas;
 
+import static java.lang.System.getenv;
 
 import com.google.api.services.vision.v1.model.AnnotateImageResponse;
 
@@ -18,13 +19,13 @@ public class Cli {
         new Cli().perform();
     }
 
-    private void perform(final String...args) throws IOException  {
+    private void perform(final String...args) throws IOException {
         legolas.processImages(args)
-                .forEach( this::showResponse );
+               .forEach(this::showResponse);
     }
     
-    public static void checkEnvironment() {
-        if (System.getenv(LegolasService.GOOGLE_ACCESS_TOKEN_ENV) == null) {
+    private static void checkEnvironment() {
+        if (getenv(LegolasService.GOOGLE_ACCESS_TOKEN_ENV) == null) {
             System.err.printf("No %s environment variable.\n", LegolasService.GOOGLE_ACCESS_TOKEN_ENV);
             System.exit(1);
         }
@@ -35,7 +36,7 @@ public class Cli {
             System.out.println( response.toPrettyString() );
         } catch (IOException e) {
             System.err.printf("io exception getting response pretty print. error message: %s\n", e.getMessage());
-            System.out.printf("response=%s\n", response );
+            System.out.printf("response=%s\n", response);
         }
     }
 }
