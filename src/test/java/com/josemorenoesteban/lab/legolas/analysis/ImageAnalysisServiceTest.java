@@ -6,12 +6,17 @@ import org.junit.Test;
 
 public class ImageAnalysisServiceTest {
     @Test
-    public void canLoadAService() {
+    public void canLoadFirstService() {
         assertNotNull( ImageAnalysisService.first() );
     }
 
     @Test
+    public void canLoadServiceByName() {
+        assertNotNull( ImageAnalysisService.byName("mock-image-analysis-service") );
+    }
+
+    @Test
     public void canLoadAllServices() {
-        ImageAnalysisService.stream().forEach( service -> assertNotNull(service) );
+        ImageAnalysisService.services().forEach( service -> assertNotNull(service) );
     }
 }
