@@ -9,9 +9,8 @@
     <name>Legolas</name>
     <packaging>jar</packaging>
     <description>
-        This project is a proof of concept of using Google Vision API and Amazon Rekognition
+        Legolas is a middleware for image analysis services
     </description>    
-    <!--url></url-->
     <inceptionYear>2017</inceptionYear>
     <developers>
         <developer>
@@ -53,5 +52,3 @@
         </plugins>
     </build>
 </project>
-
-
