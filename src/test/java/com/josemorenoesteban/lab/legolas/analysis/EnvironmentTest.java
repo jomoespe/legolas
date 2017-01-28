@@ -7,12 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class EnvironmentTest {
-    public static final String LEGOLAS_TEST_PROPERTY       = "LEGOLAS_TEST_PROPERTY";
-    public static final String LEGOLAS_TEST_PROPERTY_VALUE = "OK";
+    public static final String LEGOLAS_TEST_PROPERTY = "LEGOLAS_TEST_PROPERTY";
     
     @Before
     public void setupSystemProperties() {
-        System.setProperty(LEGOLAS_TEST_PROPERTY, LEGOLAS_TEST_PROPERTY_VALUE);
+        System.setProperty(LEGOLAS_TEST_PROPERTY, LEGOLAS_TEST_PROPERTY);
     }
 
     @After
@@ -22,15 +21,12 @@ public class EnvironmentTest {
 
     @Test
     public void canGetDefaultValue() {
-       final String OTHER_PROPERTY       = "OTHER_PROPERTY";
-       final String OTHER_PROPERTY_VALUE = "OTHER_PROPERTY_VALUE";
-       assertEquals(OTHER_PROPERTY_VALUE, Environment.value.apply(OTHER_PROPERTY).orElse(OTHER_PROPERTY_VALUE));
+       final String OTHER_PROPERTY = "OTHER_PROPERTY";
+       assertEquals(OTHER_PROPERTY, Environment.value.apply(OTHER_PROPERTY).orElse(OTHER_PROPERTY));
     }
-
 
     @Test
     public void canGetSystemPropertyValue() {
-        assertEquals(LEGOLAS_TEST_PROPERTY_VALUE, Environment.value.apply(LEGOLAS_TEST_PROPERTY).orElse("5"));
+        assertEquals(LEGOLAS_TEST_PROPERTY, Environment.value.apply(LEGOLAS_TEST_PROPERTY).orElse("5"));
     }
-    
 }

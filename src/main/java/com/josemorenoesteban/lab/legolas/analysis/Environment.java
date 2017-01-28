@@ -15,10 +15,10 @@ public class Environment {
             ofNullable(getProperty(name));
     
     public static final Function<String, Optional<String>> value = name -> {
-        Optional<String> envValue = env.apply(name);
-        return envValue.isPresent() ?  envValue : prop.apply(name);
+        Optional<String> propValue = prop.apply(name);
+        return propValue.isPresent() ?  propValue : env.apply(name);
     };
-    
+
     public static final Function<String, Optional<Integer>> asInteger = name -> 
         value.apply(name)
               .map(Integer::valueOf);
