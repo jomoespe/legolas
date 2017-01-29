@@ -27,4 +27,4 @@ Generate source and JavaDoc bundles
 
 So, to prepare all artifacts for a for a `deploy`
 
-    $ ./mvnw clean install  source:jar javadoc:jar
+    $ ./mvnw clean install source:jar javadoc:jar
