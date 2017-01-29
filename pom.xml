@@ -10,8 +10,16 @@
     <packaging>jar</packaging>
     <description>
         Legolas is a middleware for image analysis services
-    </description>    
+    </description>
     <inceptionYear>2017</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>Do What the Fuck You Want to Public License</name>
+            <url>http://www.wtfpl.net/txt/copying</url>
+        </license>
+    </licenses>
+
     <developers>
         <developer>
             <name>Jose Moreno</name>
