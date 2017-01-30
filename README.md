@@ -18,13 +18,4 @@ Build
 
     $ ./mvnw clean install
 
-
-Generate source and JavaDoc bundles
-
-    $ ./mvnw source:jar
-    $ ./mvnw javadoc:jar
-
-
-So, to prepare all artifacts for a for a `deploy`
-
-    $ ./mvnw clean install source:jar javadoc:jar
+This will generate the JAR `legolas-<version>.jar` artifact and also the source files (`legolas-<version>-sources.jar`) and javadoc (`legolas-<version>-javadoc.jar`) packages.
