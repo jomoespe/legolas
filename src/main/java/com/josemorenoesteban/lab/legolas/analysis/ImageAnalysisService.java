@@ -5,6 +5,7 @@ import static java.util.stream.StreamSupport.stream;
 
 import java.nio.ByteBuffer;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -32,5 +33,5 @@ public interface ImageAnalysisService {
 
     String name();
 
-    ImageAnalysisResult analyse(final Supplier<ByteBuffer> image);
+    Optional<ImageAnalysisResult> analyse(final Supplier<ByteBuffer> image);
 }
